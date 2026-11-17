@@ -446,7 +446,7 @@ class DisplayRenderer:
             self.canvas.Clear()
             self.canvas = self.matrix.SwapOnVSync(self.canvas)
 
-        def render_datetime(self, date_str, time_str):
+    def render_datetime(self, date_str, time_str):
         """Render current date and time centered on the RGB LED matrix"""
         if not MATRIX_AVAILABLE:
             logger.info(f"[SIMULATION] Date/Time: {date_str} | {time_str}")
