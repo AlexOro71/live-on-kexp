@@ -14,6 +14,10 @@ class Config:
     # Update interval in seconds
     update_interval = int(os.getenv('UPDATE_INTERVAL', '10'))
 
+    # Clock display settings (in seconds)
+    clock_interval = int(os.getenv('CLOCK_INTERVAL', '60'))  # Time between date/time displays
+    clock_duration = int(os.getenv('CLOCK_DURATION', '5'))   # How long to show date/time
+
     # Display settings
     matrix_rows = int(os.getenv('MATRIX_ROWS', '32'))
     matrix_cols = int(os.getenv('MATRIX_COLS', '64'))
