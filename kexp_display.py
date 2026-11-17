@@ -89,7 +89,7 @@ class KEXPDisplay:
         last_clock_time = time.time()
         showing_clock = False
         clock_start_time = 0
-        frame_delay = 0.08  # Slightly faster scrolling (~12.5 FPS)
+        frame_delay = 0.015  # Slightly faster scrolling (~12.5 FPS)
 
         # Configurable intervals (with fallback defaults)
         clock_interval = getattr(self.config, 'clock_interval', 60)
