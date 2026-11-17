@@ -446,6 +446,34 @@ class DisplayRenderer:
             self.canvas.Clear()
             self.canvas = self.matrix.SwapOnVSync(self.canvas)
 
+        def render_datetime(self, date_str, time_str):
+        """Render current date and time centered on the RGB LED matrix"""
+        if not MATRIX_AVAILABLE:
+            logger.info(f"[SIMULATION] Date/Time: {date_str} | {time_str}")
+            return
+
+        # Clear the frame canvas
+        self.canvas.Clear()
+
+        # KEXP brand colors (Orange/Gold for date, Crisp White for time)
+        date_color = graphics.Color(255, 186, 58)
+        time_color = graphics.Color(255, 255, 255)
+
+        # Estimate character width (6px for 6x9/6x10 fonts, 5px for 5x8) to center text
+        char_width = 6
+        date_width = len(date_str) * char_width
+        time_width = len(time_str) * char_width
+
+        date_x = max(0, (self.matrix.width - date_width) // 2)
+        time_x = max(0, (self.matrix.width - time_width) // 2)
+
+        # Draw date on top row (y=12) and time on bottom row (y=26)
+        graphics.DrawText(self.canvas, self.font, date_x, 12, date_color, date_str)
+        graphics.DrawText(self.canvas, self.font, time_x, 26, time_color, time_str)
+
+        # Swap buffer to display on the matrix
+        self.canvas = self.matrix.SwapOnVSync(self.canvas)
+
     def cleanup(self):
         """Clean up resources"""
         if MATRIX_AVAILABLE and self.matrix:
