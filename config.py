@@ -27,7 +27,7 @@ class Config:
     # Weather settings (Open-Meteo - no API key required)
     weather_lat = float(os.getenv('WEATHER_LAT', '47.5301'))
     weather_lon = float(os.getenv('WEATHER_LON', '-122.0326'))
-    weather_interval = int(os.getenv('WEATHER_INTERVAL', '900'))  # 15 minutes
+    weather_interval = int(os.getenv('WEATHER_INTERVAL', '60')) 
 
     # Brightness (0-100)
     brightness = int(os.getenv('BRIGHTNESS', '50'))
