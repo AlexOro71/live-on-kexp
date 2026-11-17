@@ -447,13 +447,25 @@ class DisplayRenderer:
             self.canvas = self.matrix.SwapOnVSync(self.canvas)
 
     def render_datetime(self, date_str, time_str):
-        """Render current date and time centered on the RGB LED matrix"""
+        """Render date/time and optional weather centered on the RGB LED matrix"""
         if not MATRIX_AVAILABLE:
-            logger.info(f"[SIMULATION] Date/Time: {date_str} | {time_str}")
+            logger.info(f"[SIMULATION] Top: {date_str} | Bottom: {time_or_weather_str}")
             return
 
         # Clear the frame canvas
         self.canvas.Clear()
+
+        top_color = graphics.Color(255, 186, 58)     # KEXP Orange/Gold
+        bottom_color = graphics.Color(100, 200, 255) # Light Sky Blue for weather
+
+        char_width = 5  # Uses 5px spacing so 11-12 chars fit cleanly across 64px
+        top_x = max(0, (self.matrix.width - (len(date_str) * char_width)) // 2)
+
+        graphics.DrawText(self.canvas, self.font, top_x, 12, top_color, date_str)
+
+        if time_or_weather_str:
+            bot_x = max(0, (self.matrix.width - (len(time_or_weather_str) * char_width)) // 2)
+            graphics.DrawText(self.canvas, self.font, bot_x, 26, bottom_color, time_or_weather_str)
 
         # KEXP brand colors (Orange/Gold for date, Crisp White for time)
         date_color = graphics.Color(255, 186, 58)
